@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>新潟県 観光入込客レース</title>
+<meta name="description" content="新潟県の観光入込客統計（平成23年〜令和6年）を、市町村・観光地点ごとの順位が入れ替わるバーチャートレースで見る。" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%8F%81%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>新潟県 観光入込客レース</h1>
+    <div id="legend"></div>
+  </header>
+  <div class="row opts" id="modebar">
+    <label>モード
+      <select id="mode">
+        <option value="monthly" selected>月別（市町村）</option>
+        <option value="annual">年間（市町村）</option>
+        <option value="spots">観光地点（年次）</option>
+      </select>
+    </label>
+    <label>集計
+      <select id="agg"><option value="single" selected>単月・単年</option><option value="cum">累計</option></select>
+    </label>
+    <label id="catWrap" hidden>分類 <select id="cat"></select></label>
+    <label id="muniWrap" hidden>市町村 <select id="muni"></select></label>
+  </div>
+  <div id="notice" hidden></div>
+  <div id="captions" aria-live="polite"></div>
+  <div id="stage">
+    <div id="season" hidden><span id="season-icon" aria-hidden="true"></span><span id="season-label"></span></div>
+    <div id="ym"></div>
+    <div id="chart"></div>
+  </div>
+  <section id="controls">
+    <div class="row">
+      <button id="play" aria-label="再生">▶</button>
+      <button id="restart" aria-label="最初から">⏮</button>
+      <input id="slider" type="range" min="0" max="0" value="0" aria-label="年月" />
+    </div>
+    <div class="row opts">
+      <label>速度
+        <select id="speed"><option value="5">0.2x</option><option value="2" selected>0.5x</option><option value="1">1x</option><option value="0.5">2x</option></select>
+      </label>
+      <label>表示
+        <select id="topn"><option value="10" selected>10件</option><option value="20">20件</option></select>
+      </label>
+      <label>範囲
+        <select id="range"></select>
+      </label>
+    </div>
+  </section>
+  <footer>
+    <p class="note">観光入込客数は調査に基づく推計値で、きりのよい数値（例: 340,000人）が多く、順位の僅差は参考として見てください。</p>
+    <p class="note">出典: 新潟県観光入込客統計調査（平成23年〜令和6年）。<a href="https://www.pref.niigata.lg.jp/sec/kankokikaku/1245960085415.html" target="_blank" rel="noopener">新潟県</a>
+      の著作物を改変（集計・整形）して利用しています。<a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank" rel="noopener">クリエイティブ・コモンズ・ライセンス 表示 4.0国際</a>。
+      <a href="https://www.pref.niigata.lg.jp/site/userguide/od-kiyaku.html" target="_blank" rel="noopener">新潟県オープンデータ利用規約</a></p>
+    <p class="note">令和3年（2021年）分は、県の年ページにオープンデータの表示（CC BY 4.0 適用の表記）がありません。他の年と同じ出典・表記を付けて掲載していますが、利用条件は県に確認中です。</p>
+    <p class="note">本サイトは新潟県が作成・保証したものではありません。掲載情報の完全性・正確性等について、新潟県は保証していません。</p>
+    <p class="note">観光地点は年間5万人以上の地点のうち公表可能なもののみ。令和2年に集計対象が変わったため、前後の比較には注意してください。</p>
+  </footer>
+</div>
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>

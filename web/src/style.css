@@ -1,0 +1,48 @@
+:root { --stage-bg: transparent; --bg:#fff; --fg:#1d2330; --muted:#5c6577; --line:#d9deea; --btn:#2b5fd9; }
+@media (prefers-color-scheme: dark) { :root { --bg:#12151c; --fg:#e8ebf2; --muted:#9aa3b5; --line:#2a3040; --btn:#6c93ff; } }
+* { box-sizing: border-box; }
+html, body { overflow-x:hidden; margin:0; background:var(--bg); color:var(--fg); font:16px/1.5 system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif; }
+#app { max-width: 720px; margin: 0 auto; padding: 8px 16px 24px; }
+h1 { font-size: 18px; margin: 4px 0 6px; }
+#legend { display:flex; gap:12px; flex-wrap:wrap; font-size:14px; }
+#legend span { display:inline-flex; align-items:center; gap:4px; }
+#legend i { width:12px; height:12px; border-radius:3px; display:inline-block; }
+#stage { position:relative; margin-top:8px; }
+#chart { width:100%; height: min(62vh, 560px); min-height: 360px; }
+#ym { position:absolute; right:6px; bottom:34px; z-index:2; font-size:40px; font-weight:700; color:var(--fg); opacity:.55; pointer-events:none; font-variant-numeric: tabular-nums; white-space:pre; text-align:right; line-height:1.15; }
+.row { display:flex; align-items:center; gap:10px; margin-top:8px; }
+button { min-width:48px; height:48px; border-radius:12px; border:1px solid var(--line); background:var(--btn); color:#fff; font-size:20px; cursor:pointer; }
+#restart { background:transparent; color:var(--fg); }
+#slider { flex:1; height:32px; accent-color: var(--btn); }
+.opts { flex-wrap:wrap; font-size:14px; }
+select { font-size:16px; min-height:44px; padding:0 8px; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--fg); }
+.note { font-size:12px; color:var(--muted); margin:6px 0; }
+.note a { color:var(--muted); }
+
+#modebar { margin-top: 6px; }
+#modebar label { display:flex; align-items:center; gap:6px; }
+#notice { margin-top:8px; padding:8px 10px; border-radius:8px; font-size:13px; background:rgba(232,137,43,.15); border:1px solid rgba(232,137,43,.5); }
+#notice.hot { background:rgba(232,137,43,.35); font-weight:700; }
+#captions { min-height: 52px; margin-top: 6px; font-size:14px; }
+#captions div { padding:2px 0; }
+#captions .ann { color: var(--btn); font-weight:600; }
+[hidden] { display: none !important; }
+
+/* 季節ごとの背景（月別モードのみ）。ライト/ダークそれぞれ淡色 */
+#stage { border-radius: 12px; background: var(--stage-bg); transition: background-color .6s ease; }
+#stage[data-season="春"] { --stage-bg: #fff1f5; }
+#stage[data-season="夏"] { --stage-bg: #eaf7f6; }
+#stage[data-season="秋"] { --stage-bg: #fff3e6; }
+#stage[data-season="冬"] { --stage-bg: #eef3f9; }
+@media (prefers-color-scheme: dark) {
+  #stage[data-season="春"] { --stage-bg: #2a1c24; }
+  #stage[data-season="夏"] { --stage-bg: #14292a; }
+  #stage[data-season="秋"] { --stage-bg: #2b2217; }
+  #stage[data-season="冬"] { --stage-bg: #18212d; }
+}
+#season { position:absolute; right:8px; bottom:100px; z-index:2; display:flex; align-items:center; gap:8px; pointer-events:none; }
+#season-icon { font-size: 40px; line-height: 1; }
+#season-icon.pop { animation: season-pop .5s ease; }
+#season-label { font-size: 14px; font-weight: 600; color: var(--muted); }
+@keyframes season-pop { from { opacity:0; transform: scale(.6); } to { opacity:1; transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { #season-icon.pop { animation: none; } #stage { transition: none; } }

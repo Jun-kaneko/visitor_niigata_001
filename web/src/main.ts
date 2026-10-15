@@ -1,0 +1,292 @@
+import * as echarts from 'echarts';
+import { seasonOf } from './season';
+
+interface RawSeries { name: string; region?: string; municipality?: string; category?: string; values: (number | null)[]; }
+interface Raw { frames: string[]; regions?: string[]; series: RawSeries[]; }
+interface Item { key: string; name: string; group: string; municipality: string; values: (number | null)[]; }
+interface Dataset {
+  frames: string[]; items: Item[]; lag: number; interval: number;
+  label: (f: string) => string; unit: string; groups: string[]; allowYears: boolean;
+}
+type Mode = 'monthly' | 'annual' | 'spots';
+
+const REGION_COLORS: Record<string, string> = {
+  下越: '#2f6fdb', 中越: '#e8892b', 魚沼: '#1b9e77', 上越: '#c0408f', 佐渡: '#8a6d1f',
+};
+const CATEGORY_COLORS: Record<string, string> = {
+  自然: '#2e9e5b', '歴史・文化': '#a35d2c', '温泉・健康': '#d6453d', 'スポーツ・レクリエーション': '#2f6fdb',
+  都市型観光: '#8f5bd0', その他: '#7b8394', '行祭事・イベント': '#d19a00',
+};
+const CATEGORIES = Object.keys(CATEGORY_COLORS);
+const COLORS: Record<string, string> = { ...REGION_COLORS, ...CATEGORY_COLORS };
+const BREAK_YEAR = '2020';
+
+const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+const fmt = (v: number) => Math.round(v).toLocaleString('ja-JP');
+const man = (v: number) =>
+  v >= 1e8 ? (v / 1e8).toFixed(2) + '億' : (v >= 1e6 ? (v / 1e4).toFixed(0) : (v / 1e4).toFixed(1)) + '万';
+const get = async <T>(f: string): Promise<T> => (await fetch(`./data/${f}`)).json();
+
+async function main() {
+  const [monthly, annual, spots, annotations] = await Promise.all([
+    get<Raw>('monthly.json'), get<Raw>('annual.json'), get<Raw>('spots.json'),
+    get<{ ym: string; target: string; text: string }[]>('annotations.json'),
+  ]);
+  const regions = monthly.regions!;
+  const muniOrder = monthly.series.map((s) => s.name);
+
+  const fromRegional = (r: Raw): Item[] =>
+    r.series.map((s) => ({ key: s.name, name: s.name, group: s.region!, municipality: s.name, values: s.values }));
+
+  const ymMonthly = (f: string) => { const [y, m] = f.split('-'); return `${y}年${Number(m)}月`; };
+  const datasets: Record<Mode, () => Dataset> = {
+    monthly: () => ({ frames: monthly.frames, items: fromRegional(monthly), lag: 12, interval: 700,
+      label: ymMonthly, unit: '同月', groups: regions, allowYears: true }),
+    annual: () => ({ frames: annual.frames, items: fromRegional(annual), lag: 1, interval: 1400,
+      label: (f) => `${f}年`, unit: '', groups: regions, allowYears: false }),
+    spots: () => {
+      const cat = $<HTMLSelectElement>('cat').value, mu = $<HTMLSelectElement>('muni').value;
+      const list = spots.series.filter((s) => (!cat || s.category === cat) && (!mu || s.municipality === mu));
+      const cnt = new Map<string, number>();
+      list.forEach((s) => cnt.set(s.name, (cnt.get(s.name) ?? 0) + 1));
+      const items = list.map((s) => ({
+        key: `${s.municipality}/${s.name}`,
+        name: (cnt.get(s.name)! > 1 || spots.series.some((o) => o !== s && o.name === s.name && !list.includes(o)))
+          ? `${s.name}（${s.municipality}）` : s.name,
+        group: s.category!, municipality: s.municipality!, values: s.values,
+      }));
+      return { frames: spots.frames, items, lag: 1, interval: 1400, label: (f) => `${f}年`, unit: '',
+        groups: CATEGORIES, allowYears: false };
+    },
+  };
+
+  // --- state ---
+  let mode: Mode = 'monthly';
+  let ds = datasets.monthly();
+  let start = 0, end = ds.frames.length - 1, idx = 0, playing = false, topN = 10, speed = 2;   // speed は間隔の倍率（2 = 0.5x が既定）
+  let timer: number | undefined;
+  let cumulative = false;
+  let cum: number[][] = [];   // 累計（範囲の先頭から。欠損・対象外は0として加算）
+  const slider = $<HTMLInputElement>('slider'), playBtn = $('play');
+  const rangeSel = $<HTMLSelectElement>('range');
+  const chart = echarts.init($('chart'));
+  const noAnim = /(^|&)a=0/.test(location.hash.slice(1)); // 検証用: アニメーション無効
+  const intervalMs = () => ds.interval * speed;
+  const animMs = () => (noAnim ? 0 : intervalMs());
+
+  // spots 絞り込みの選択肢
+  $<HTMLSelectElement>('cat').innerHTML = '<option value="">全分類</option>' +
+    CATEGORIES.map((c) => `<option>${c}</option>`).join('');
+  const spotMunis = new Set(spots.series.map((s) => s.municipality));
+  $<HTMLSelectElement>('muni').innerHTML = '<option value="">全市町村</option>' +
+    muniOrder.filter((m) => spotMunis.has(m)).map((m) => `<option>${m}</option>`).join('');
+
+  function renderLegend() {
+    $('legend').innerHTML = ds.groups
+      .map((g) => `<span><i style="background:${COLORS[g]}"></i>${g}</span>`).join('');
+  }
+
+  function setRangeOptions() {
+    const years = [...new Set(ds.frames.map((f) => f.slice(0, 4)))];
+    rangeSel.innerHTML = `<option value="all">全期間（${years[0]}〜${years[years.length - 1]}）</option>` +
+      (ds.allowYears ? years.map((y) => `<option value="${y}">${y}年（12か月で循環）</option>`).join('') : '');
+    rangeSel.disabled = !ds.allowYears;
+  }
+
+  function buildCum() {
+    cum = ds.items.map((it) => { let sum = 0; return it.values.map((v, j) => (j < start ? 0 : (sum += v ?? 0))); });
+  }
+  // 現在のモードでの値（累計なら累計値。単月で欠損なら null）
+  const raw = (k: number, i: number): number | null => (cumulative ? cum[k][i] : ds.items[k].values[i]);
+  const dataFor = (i: number) =>
+    ds.items.map((it, k) => ({ name: it.name, value: raw(k, i) ?? 0, itemStyle: { color: COLORS[it.group] } }));
+
+  function option(): echarts.EChartsOption {
+    return {
+      grid: { top: 8, bottom: 30, left: 4, right: 70, containLabel: true },
+      xAxis: { max: 'dataMax', axisLabel: { fontSize: 12, formatter: (n: number) => man(n) },
+        splitLine: { lineStyle: { opacity: 0.3 } } },
+      yAxis: { type: 'category', inverse: true, max: Math.min(topN, ds.items.length) - 1,
+        data: ds.items.map((it) => it.name),
+        axisLabel: { fontSize: 14, interval: 0, width: mode === 'spots' ? 130 : 84, overflow: 'truncate' },
+        animationDuration: 300, animationDurationUpdate: 300 },
+      series: [{
+        type: 'bar', realtimeSort: true, data: dataFor(idx), barCategoryGap: '25%',
+        label: { show: true, position: 'right', fontSize: 14, valueAnimation: true,
+          textBorderWidth: 0, color: 'inherit', formatter: (p: any) => man(Number(p.value)) },
+      }],
+      animationDuration: 0, animationDurationUpdate: animMs(),
+      animationEasing: 'linear', animationEasingUpdate: 'linear',
+      tooltip: {
+        trigger: 'item', confine: true, textStyle: { fontSize: 14 },
+        formatter: (p: any) => {
+          const k = ds.items.findIndex((x) => x.name === p.name);
+          if (k < 0) return '';
+          const it = ds.items[k];
+          const v = it.values[idx];
+          const head = mode === 'spots' ? `${it.municipality}／${it.group}` : it.group;
+          const lines = [`<b>${it.name}</b>（${head}）`];
+          if (cumulative) lines.push(`累計（${ds.label(ds.frames[start])}〜${ds.label(ds.frames[idx])}）: ${fmt(cum[k][idx])}人`);
+          lines.push(`${ds.label(ds.frames[idx])}: ` + (v == null ? 'データなし' + (mode === 'spots' ? '（集計対象外）' : '') : `${fmt(v)}人`));
+          const pv = idx >= ds.lag ? it.values[idx - ds.lag] : null;
+          if (v != null && pv != null && pv > 0) {
+            const r = (v / pv - 1) * 100;
+            lines.push(`前年${ds.unit}: ${fmt(pv)}人（${r >= 0 ? '+' : ''}${r.toFixed(1)}%）`);
+          }
+          return lines.join('<br/>');
+        },
+      },
+    };
+  }
+
+  // --- 自動キャプション（優先: 1位交代 > 前年同月比の急変 > TOP10新規入り、最大2件） ---
+  function topOrder(i: number): number[] {
+    return ds.items.map((_, k) => k)
+      .sort((a, b) => (raw(b, i) ?? 0) - (raw(a, i) ?? 0));
+  }
+  function captions(i: number): string[] {
+    const out: string[] = [];
+    if (!ds.items.length) return out;
+    const cur = topOrder(i);
+    const hasPrev = i > start;
+    const prev = hasPrev ? topOrder(i - 1) : null;
+    if (prev && raw(cur[0], i) != null && cur[0] !== prev[0]) {
+      out.push(`🥇 ${ds.items[cur[0]].name}が1位に（前は${ds.items[prev[0]].name}）`);
+    }
+    // 前年（同月）比の急変: 表示中の上位N件のみ。変化の大きい1件
+    if (!cumulative && i >= ds.lag) {   // 累計では前年比の急変は出さない
+      let best: { k: number; r: number } | null = null;
+      for (const k of cur.slice(0, topN)) {
+        const v = ds.items[k].values[i], pv = ds.items[k].values[i - ds.lag];
+        if (v == null || pv == null || pv <= 0) continue;
+        const r = v / pv - 1;
+        if ((r >= 0.5 || r <= -0.3) && (!best || Math.abs(r) > Math.abs(best.r))) best = { k, r };
+      }
+      if (best) out.push(`📈 ${ds.items[best.k].name}が前年${ds.unit}比 ${best.r >= 0 ? '+' : ''}${(best.r * 100).toFixed(0)}%`);
+    }
+    if (prev) {
+      const was = new Set(prev.slice(0, 10));
+      const k = cur.slice(0, 10).find((x) => !was.has(x) && raw(x, i) != null);
+      if (k !== undefined) out.push(`⬆ ${ds.items[k].name}がTOP10入り`);
+    }
+    return out.slice(0, 2);
+  }
+
+  function renderCaptions(i: number) {
+    const f = ds.frames[i];
+    const ann = annotations.filter((a) => a.ym === f)
+      .map((a) => `<div class="ann">📝 ${a.target ? a.target + ': ' : ''}${a.text}</div>`);
+    $('captions').innerHTML = ann.concat(captions(i).map((c) => `<div>${c}</div>`)).join('');
+  }
+
+  function renderNotice(i: number) {
+    const el = $('notice');
+    el.hidden = mode !== 'spots';
+    if (mode !== 'spots') return;
+    const count = (y: string) => { const k = ds.frames.indexOf(y); return spots.series.filter((s) => s.values[k] != null).length; };
+    const hot = ds.frames[i] === BREAK_YEAR;
+    el.className = hot ? 'hot' : '';
+    el.textContent = `※年により集計対象が異なります。${BREAK_YEAR}年に集計対象が変わり、掲載地点が` +
+      `${count('2019')}件（2019年）→${count(BREAK_YEAR)}件（${BREAK_YEAR}年）になりました。` +
+      '前年が対象外の地点は途中から現れ、0から伸びます。' +
+      (cumulative ? '累計は、掲載対象になった年の値のみの合計です。' : '');
+  }
+
+  // 季節の背景色と絵文字（月別フレームのときのみ。年次モードは季節なし）
+  function renderSeason(frame: string) {
+    const stage = $('stage'), box = $('season'), icon = $('season-icon');
+    if (mode !== 'monthly') { box.hidden = true; delete stage.dataset.season; return; }
+    const se = seasonOf(frame);
+    box.hidden = false;
+    stage.dataset.season = se.season;
+    if (icon.textContent !== se.icon) {
+      icon.textContent = se.icon;
+      icon.classList.remove('pop'); void icon.offsetWidth; icon.classList.add('pop');
+    }
+    $('season-label').textContent = `${se.season}・${se.motif}`;
+  }
+
+  function render(i: number, full = false) {
+    idx = i;
+    $('ym').textContent = ds.label(ds.frames[i]) + (cumulative ? '\n累計' : '');
+    renderSeason(ds.frames[i]);
+    slider.value = String(i);
+    renderCaptions(i);
+    renderNotice(i);
+    if (full) chart.setOption(option(), true);
+    else chart.setOption({ series: [{ type: 'bar', data: dataFor(i) }], animationDurationUpdate: animMs() });
+  }
+
+  function setRange(key: string) {
+    if (key === 'all') { start = 0; end = ds.frames.length - 1; }
+    else { start = ds.frames.findIndex((f) => f.startsWith(key)); end = start + 11; }
+    slider.min = String(start); slider.max = String(end);
+    buildCum();
+    render(start, true);
+  }
+
+  function tick() {
+    if (!playing) return;
+    if (idx >= end) {
+      if (rangeSel.value === 'all') { pause(); return; }
+      render(start);
+    } else render(idx + 1);
+    timer = window.setTimeout(tick, intervalMs());
+  }
+  function play() {
+    if (playing) return;
+    if (idx >= end && rangeSel.value === 'all') render(start);
+    playing = true; playBtn.textContent = '⏸'; playBtn.setAttribute('aria-label', '一時停止');
+    timer = window.setTimeout(tick, intervalMs());
+  }
+  function pause() {
+    playing = false; playBtn.textContent = '▶'; playBtn.setAttribute('aria-label', '再生');
+    if (timer) clearTimeout(timer);
+  }
+
+  function setMode(m: Mode) {
+    pause();
+    mode = m;
+    ds = datasets[m]();
+    $('catWrap').hidden = $('muniWrap').hidden = m !== 'spots';
+    renderLegend();
+    setRangeOptions();
+    setRange('all');
+  }
+
+  playBtn.onclick = () => (playing ? pause() : play());
+  $('restart').onclick = () => render(start);
+  slider.oninput = () => render(Number(slider.value));
+  $<HTMLSelectElement>('speed').onchange = (e) => {
+    speed = Number((e.target as HTMLSelectElement).value);
+    chart.setOption({ animationDurationUpdate: intervalMs() });
+  };
+  $<HTMLSelectElement>('topn').onchange = (e) => { topN = Number((e.target as HTMLSelectElement).value); render(idx, true); };
+  rangeSel.onchange = () => { pause(); setRange(rangeSel.value); };
+  $<HTMLSelectElement>('mode').onchange = (e) => setMode((e.target as HTMLSelectElement).value as Mode);
+  const refilter = () => { pause(); ds = datasets.spots(); setRange('all'); };
+  $<HTMLSelectElement>('agg').onchange = (e) => {
+    cumulative = (e.target as HTMLSelectElement).value === 'cum';
+    render(idx, true);
+  };
+  $('cat').onchange = refilter; $('muni').onchange = refilter;
+  window.addEventListener('resize', () => chart.resize());
+
+  renderLegend();
+  setRangeOptions();
+  setRange('all');
+  // 共有・検証用ハッシュ: #m=annual|spots&i=<frame>&p=1&c=<分類>&u=<市町村>
+  const hash = new URLSearchParams(location.hash.slice(1));
+  const hm = hash.get('m') as Mode | null;
+  if (hm && hm in datasets) {
+    $<HTMLSelectElement>('mode').value = hm;
+    if (hash.get('c')) $<HTMLSelectElement>('cat').value = hash.get('c')!;
+    if (hash.get('u')) $<HTMLSelectElement>('muni').value = hash.get('u')!;
+    setMode(hm);
+  }
+  if (hash.get('s') === 'cum') { cumulative = true; $<HTMLSelectElement>('agg').value = 'cum'; }
+  if (hash.get('i')) render(Math.min(Number(hash.get('i')), ds.frames.length - 1));
+  if (hash.get('p') === '1') play();
+}
+
+main();

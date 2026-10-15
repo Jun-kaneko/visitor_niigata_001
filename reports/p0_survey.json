@@ -1,0 +1,359 @@
+{
+ "2024": {
+  "xlsx": {
+   "sheets": [
+    [
+     "第１表",
+     "A1:E43"
+    ],
+    [
+     "第２、３表",
+     "A1:S67"
+    ],
+    [
+     "表4(1)～(3)",
+     "A1:P87"
+    ],
+    [
+     "表4(4)～(5)",
+     "A1:R97"
+    ],
+    [
+     "表4(6)～(7)",
+     "A1:P100"
+    ],
+    [
+     "表5市町村合計",
+     "A1:R40"
+    ],
+    [
+     "表6市町村別分類別",
+     "A1:R42"
+    ],
+    [
+     "表7",
+     "B1:L220"
+    ],
+    [
+     "別表第1",
+     "A1:AD22"
+    ],
+    [
+     "別表第2-1",
+     "A1:AA23"
+    ],
+    [
+     "別表第2-2①②",
+     "B1:AC39"
+    ],
+    [
+     "別表第2-2③④",
+     "B1:AM39"
+    ]
+   ],
+   "munis": 30,
+   "spots_rows": 208
+  },
+  "pdf": {
+   "p5_pages": [
+    12,
+    13
+   ],
+   "munis": 30,
+   "has_total": true,
+   "spots_rows": 206,
+   "missing_munis": []
+  },
+  "pdf_file": "475889.pdf"
+ },
+ "2023": {
+  "xlsx": {
+   "sheets": [
+    [
+     "第１表",
+     "A1:E43"
+    ],
+    [
+     "第２、３表",
+     "A1:S69"
+    ],
+    [
+     "表4(1)～(3)",
+     "A1:P87"
+    ],
+    [
+     "表4(4)～(5)",
+     "A1:Q97"
+    ],
+    [
+     "表4(6)～(7)",
+     "A1:P100"
+    ],
+    [
+     "表5市町村合計",
+     "A1:R40"
+    ],
+    [
+     "表6市町村別分類別",
+     "A1:R42"
+    ],
+    [
+     "表7",
+     "B1:L214"
+    ],
+    [
+     "別表第1",
+     "A1:AD22"
+    ],
+    [
+     "別表第2-1",
+     "A1:AA23"
+    ],
+    [
+     "別表第2-2①②",
+     "B1:AC39"
+    ],
+    [
+     "別表第2-2③④",
+     "B1:AM39"
+    ]
+   ],
+   "munis": 30,
+   "spots_rows": 209
+  },
+  "pdf": {
+   "p5_pages": [
+    12,
+    13
+   ],
+   "munis": 30,
+   "has_total": true,
+   "spots_rows": 205,
+   "missing_munis": []
+  },
+  "pdf_file": "430238.pdf"
+ },
+ "2022": {
+  "xlsx": {
+   "sheets": [
+    [
+     "第１表",
+     "A1:E43"
+    ],
+    [
+     "第２、３表",
+     "A1:R69"
+    ],
+    [
+     "表4(1)～(3)",
+     "A1:P87"
+    ],
+    [
+     "表4(4)～(5)",
+     "A1:Q97"
+    ],
+    [
+     "表4(6)～(7)",
+     "A1:P100"
+    ],
+    [
+     "表5市町村合計",
+     "A1:Q42"
+    ],
+    [
+     "表6市町村別分類別",
+     "A1:Q42"
+    ],
+    [
+     "表7",
+     "A1:K196"
+    ],
+    [
+     "別表第1",
+     "A1:AB22"
+    ],
+    [
+     "別表第2-1",
+     "A1:Y23"
+    ],
+    [
+     "別表第2-2①②",
+     "B1:Z39"
+    ],
+    [
+     "別表第2-2③④",
+     "B1:AJ39"
+    ]
+   ],
+   "munis": 30,
+   "spots_rows": 191
+  },
+  "pdf": {
+   "p5_pages": [
+    12,
+    13
+   ],
+   "munis": 30,
+   "has_total": true,
+   "spots_rows": 175,
+   "missing_munis": []
+  },
+  "pdf_file": "407410.pdf"
+ },
+ "2021": {
+  "pdf": {
+   "p5_pages": [
+    12,
+    13
+   ],
+   "munis": 30,
+   "has_total": true,
+   "spots_rows": 148,
+   "missing_munis": []
+  },
+  "pdf_file": "343294.pdf"
+ },
+ "2020": {
+  "pdf": {
+   "p5_pages": [
+    12,
+    13
+   ],
+   "munis": 30,
+   "has_total": true,
+   "spots_rows": 136,
+   "missing_munis": []
+  },
+  "pdf_file": "293902.pdf"
+ },
+ "2019": {
+  "pdf": {
+   "p5_pages": [
+    12,
+    13
+   ],
+   "munis": 30,
+   "has_total": true,
+   "spots_rows": 255,
+   "missing_munis": []
+  },
+  "pdf_file": "240907.pdf"
+ },
+ "2018": {
+  "pdf": {
+   "p5_pages": [
+    12,
+    13
+   ],
+   "munis": 30,
+   "has_total": true,
+   "spots_rows": 246,
+   "missing_munis": []
+  },
+  "pdf_file": "195170.pdf"
+ },
+ "2017": {
+  "pdf": {
+   "p5_pages": [
+    12,
+    13
+   ],
+   "munis": 30,
+   "has_total": true,
+   "spots_rows": 239,
+   "missing_munis": []
+  },
+  "pdf_file": "50508.pdf"
+ },
+ "2016": {
+  "pdf": {
+   "p5_pages": [
+    12,
+    13
+   ],
+   "munis": 30,
+   "has_total": true,
+   "spots_rows": 243,
+   "missing_munis": []
+  },
+  "pdf_file": "50376.pdf"
+ },
+ "2015": {
+  "pdf": {
+   "p5_pages": [
+    12,
+    13
+   ],
+   "munis": 30,
+   "has_total": true,
+   "spots_rows": 241,
+   "missing_munis": []
+  },
+  "pdf_file": "50560.pdf"
+ },
+ "2014": {
+  "pdf": {
+   "p5_pages": [
+    12,
+    13
+   ],
+   "munis": 30,
+   "has_total": true,
+   "spots_rows": 229,
+   "missing_munis": []
+  },
+  "pdf_file": "50370.pdf"
+ },
+ "2013": {
+  "pdf": {
+   "p5_pages": [
+    12,
+    13
+   ],
+   "munis": 30,
+   "has_total": true,
+   "spots_rows": 253,
+   "missing_munis": []
+  },
+  "pdf_file": "50339.pdf"
+ },
+ "2012": {
+  "pdf": {
+   "p5_pages": [
+    12,
+    13
+   ],
+   "munis": 30,
+   "has_total": true,
+   "spots_rows": 227,
+   "missing_munis": []
+  },
+  "pdf_file": "50581.pdf"
+ },
+ "2011": {
+  "pdf": {
+   "p5_pages": [
+    12,
+    13
+   ],
+   "munis": 30,
+   "has_total": true,
+   "spots_rows": 224,
+   "missing_munis": []
+  },
+  "pdf_file": "50453.pdf"
+ },
+ "2010": {
+  "pdf": {
+   "p5_pages": [
+    9,
+    10
+   ],
+   "munis": 30,
+   "has_total": true,
+   "spots_rows": 209,
+   "missing_munis": []
+  },
+  "pdf_file": "50555.pdf"
+ }
+}

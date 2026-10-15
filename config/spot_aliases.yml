@@ -1,0 +1,9 @@
+# 観光地点の名称統合ルール（初期は空）。
+# 形式: 「新名称」に統合したい旧名称を列挙する。市町村を指定すると同一市町村内のみに適用。
+# 候補は data/processed/spot_alias_candidates.csv を見て人が判断する。
+#
+# aliases:
+#   - municipality: 新潟市
+#     canonical: 新名称
+#     names: [旧名称1, 旧名称2]
+aliases: []

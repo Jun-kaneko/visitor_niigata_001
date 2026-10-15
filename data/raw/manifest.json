@@ -1,0 +1,410 @@
+[
+ {
+  "title": "令和6年新潟県観光入込客統計",
+  "year": 2024,
+  "page": "https://www.pref.niigata.lg.jp/site/opendata/r6irikomi.html",
+  "dir": "data/raw/2024",
+  "files": [
+   {
+    "label": "令和６年新潟県観光入込客［全体版］ [PDFファイル／3.49MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/494807.pdf"
+   },
+   {
+    "label": "令和６年調査概要・調査結果（表紙～P.20） [PDFファイル／1.93MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/475887.pdf"
+   },
+   {
+    "label": "令和６年個別調査資料（P.21～P.26） [PDFファイル／419KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/475888.pdf"
+   },
+   {
+    "label": "令和６年観光入込客統計別表（P.27～P.43） [PDFファイル／590KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/475889.pdf"
+   },
+   {
+    "label": "令和６年参考資料（P.44～裏表紙） [PDFファイル／632KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/494808.pdf"
+   },
+   {
+    "label": "令和６年観光入込客統計表・別表データ [Excelファイル／158KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/483582.xlsx"
+   }
+  ]
+ },
+ {
+  "title": "令和5年新潟県観光入込客統計",
+  "year": 2023,
+  "page": "https://www.pref.niigata.lg.jp/site/opendata/r5irikomi.html",
+  "dir": "data/raw/2023",
+  "files": [
+   {
+    "label": "令和5年新潟県観光入込客 [PDFファイル／2.37MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/494805.pdf"
+   },
+   {
+    "label": "令和5年調査概要・調査結果（表紙～P.20） [PDFファイル／1008KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/430234.pdf"
+   },
+   {
+    "label": "令和5年個別調査資料（P.21～P.26） [PDFファイル／382KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/430236.pdf"
+   },
+   {
+    "label": "令和5年観光入込客統計別表（P.27～P.44） [PDFファイル／611KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/430238.pdf"
+   },
+   {
+    "label": "令和5年参考資料（P.45～裏表紙） [PDFファイル／515KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/494806.pdf"
+   },
+   {
+    "label": "令和５年観光入込客統計表・別表データ [Excelファイル／157KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/483583.xlsx"
+   }
+  ]
+ },
+ {
+  "title": "令和4年新潟県観光入込客統計",
+  "year": 2022,
+  "page": "https://www.pref.niigata.lg.jp/site/opendata/r4irikomi240122.html",
+  "dir": "data/raw/2022",
+  "files": [
+   {
+    "label": "令和4年新潟県観光入込客［全体版］ [PDFファイル／5.74MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/407407.pdf"
+   },
+   {
+    "label": "令和4年調査概要・調査結果（表紙～P.20） [PDFファイル／3.41MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/407408.pdf"
+   },
+   {
+    "label": "令和4年個別調査資料（P.21～P.26） [PDFファイル／1.61MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/407409.pdf"
+   },
+   {
+    "label": "令和4年観光入込客統計別表（P.27～P.44） [PDFファイル／394KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/407410.pdf"
+   },
+   {
+    "label": "令和4年参考資料（P.45～裏表紙） [PDFファイル／347KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/407411.pdf"
+   },
+   {
+    "label": "令和4年観光入込客統計表・別表データ [Excelファイル／149KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/407412.xlsx"
+   }
+  ]
+ },
+ {
+  "title": "令和3年新潟県観光入込客統計",
+  "year": 2021,
+  "page": "https://www.pref.niigata.lg.jp/sec/kankokikaku/r3irikomi.html",
+  "dir": "data/raw/2021",
+  "files": [
+   {
+    "label": "令和3年新潟県観光入込客［全体版］ [PDFファイル／3.38MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/343292.pdf"
+   },
+   {
+    "label": "令和3年調査概要・調査結果（表紙～P.20） [PDFファイル／2.08MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/342452.pdf"
+   },
+   {
+    "label": "令和3年個別調査資料（P.21～P.26） [PDFファイル／599KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/342453.pdf"
+   },
+   {
+    "label": "令和3年観光入込客統計別表（P.27～P.42） [PDFファイル／372KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/343294.pdf"
+   },
+   {
+    "label": "令和3年参考資料（P.43～裏表紙） [PDFファイル／341KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/342455.pdf"
+   },
+   {
+    "label": "令和3年新潟県観光入込客統計調査結果（速報値） [PDFファイル／402KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/330292.pdf"
+   }
+  ]
+ },
+ {
+  "title": "令和2年新潟県観光入込客統計",
+  "year": 2020,
+  "page": "https://www.pref.niigata.lg.jp/sec/kankokikaku/irikomi2020.html",
+  "dir": "data/raw/2020",
+  "files": [
+   {
+    "label": "令和2年観光入込客統計[全体版] [PDFファイル／8.17MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/293898.pdf"
+   },
+   {
+    "label": "令和2年調査概要・調査結果（表紙～P.20） [PDFファイル／6.18MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/293899.pdf"
+   },
+   {
+    "label": "令和2年個別調査資料（P.21～P.26） [PDFファイル／900KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/293901.pdf"
+   },
+   {
+    "label": "令和2年観光入込客統計別表（P.27～P.42） [PDFファイル／363KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/293902.pdf"
+   },
+   {
+    "label": "令和2年参考資料（P.43～裏表紙） [PDFファイル／753KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/293903.pdf"
+   },
+   {
+    "label": "令和2年新潟県観光入込客統計調査 [PDFファイル／590KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/280072.pdf"
+   }
+  ]
+ },
+ {
+  "title": "平成31年/令和元年新潟県観光入込客統計",
+  "year": 2019,
+  "page": "https://www.pref.niigata.lg.jp/sec/kankokikaku/1948273850.html",
+  "dir": "data/raw/2019",
+  "files": [
+   {
+    "label": "調査概要、調査結果（表紙～p20） [PDFファイル／4.62MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/240905.pdf"
+   },
+   {
+    "label": "個別調査資料（p21～p28） [PDFファイル／4.62MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/240906.pdf"
+   },
+   {
+    "label": "別表（p29～p48） [PDFファイル／4.62MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/240907.pdf"
+   },
+   {
+    "label": "参考資料（p49～裏表紙） [PDFファイル／4.68MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/241479.pdf"
+   }
+  ]
+ },
+ {
+  "title": "平成30年新潟県観光入込客統計",
+  "year": 2018,
+  "page": "https://www.pref.niigata.lg.jp/sec/kankokikaku/1356901742449.html",
+  "dir": "data/raw/2018",
+  "files": [
+   {
+    "label": "概要調査概要、調査結果（表紙～p20） [PDFファイル／1.05MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/195167.pdf"
+   },
+   {
+    "label": "個別調査資料（p21～p28） [PDFファイル／486KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/195169.pdf"
+   },
+   {
+    "label": "別表（p29～p48） [PDFファイル／619KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/195170.pdf"
+   },
+   {
+    "label": "参考資料（p49～裏表紙） [PDFファイル／526KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/195171.pdf"
+   }
+  ]
+ },
+ {
+  "title": "平成29年新潟県観光入込客統計",
+  "year": 2017,
+  "page": "https://www.pref.niigata.lg.jp/sec/kankokikaku/1356905567771.html",
+  "dir": "data/raw/2017",
+  "files": [
+   {
+    "label": "調査概要、調査結果（表紙～p20）[PDFファイル／524KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50506.pdf"
+   },
+   {
+    "label": "個別調査資料（p21～p28）[PDFファイル／199KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50507.pdf"
+   },
+   {
+    "label": "別表（p29～p48）[PDFファイル／310KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50508.pdf"
+   },
+   {
+    "label": "参考資料（p49～裏表紙）[PDFファイル／655KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50509.pdf"
+   }
+  ]
+ },
+ {
+  "title": "平成28年新潟県観光入込客統計",
+  "year": 2016,
+  "page": "https://www.pref.niigata.lg.jp/sec/kankokikaku/1356875655120.html",
+  "dir": "data/raw/2016",
+  "files": [
+   {
+    "label": "調査概要、調査結果（表紙～p20）[PDFファイル／519KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50374.pdf"
+   },
+   {
+    "label": "個別調査資料（p21～p34）[PDFファイル／319KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50375.pdf"
+   },
+   {
+    "label": "別表（p35～p54）[PDFファイル／313KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50376.pdf"
+   },
+   {
+    "label": "参考資料（p55～裏表紙）[PDFファイル／648KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50377.pdf"
+   }
+  ]
+ },
+ {
+  "title": "平成27年新潟県観光入込客統計",
+  "year": 2015,
+  "page": "https://www.pref.niigata.lg.jp/sec/kankokikaku/1356847493493.html",
+  "dir": "data/raw/2015",
+  "files": [
+   {
+    "label": "調査概要、調査結果（表紙～p20）[PDFファイル／940KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50558.pdf"
+   },
+   {
+    "label": "個別調査資料（p21～p34）[PDFファイル／346KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50559.pdf"
+   },
+   {
+    "label": "別表（p35～p54）[PDFファイル／313KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50560.pdf"
+   },
+   {
+    "label": "参考資料（p55～裏表紙）[PDFファイル／778KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50561.pdf"
+   }
+  ]
+ },
+ {
+  "title": "平成26年新潟県観光入込客統計",
+  "year": 2014,
+  "page": "https://www.pref.niigata.lg.jp/sec/kankokikaku/1356828785276.html",
+  "dir": "data/raw/2014",
+  "files": [
+   {
+    "label": "調査概要、調査結果（表紙～P20）[PDFファイル／516KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50368.pdf"
+   },
+   {
+    "label": "個別調査資料（P21～34）[PDFファイル／1.37MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50369.pdf"
+   },
+   {
+    "label": "別表（P35～54）[PDFファイル／495KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50370.pdf"
+   },
+   {
+    "label": "参考資料（P55～背表紙）[PDFファイル／751KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50371.pdf"
+   }
+  ]
+ },
+ {
+  "title": "平成25年新潟県観光入込客統計",
+  "year": 2013,
+  "page": "https://www.pref.niigata.lg.jp/sec/kankokikaku/1356800723649.html",
+  "dir": "data/raw/2013",
+  "files": [
+   {
+    "label": "調査概要、調査結果（表紙～P20）[PDFファイル／521KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50337.pdf"
+   },
+   {
+    "label": "個別調査資料（P21～34）[PDFファイル／1.3MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50338.pdf"
+   },
+   {
+    "label": "別表（P35～54）[PDFファイル／496KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50339.pdf"
+   },
+   {
+    "label": "参考資料（P55～背表紙）[PDFファイル／740KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50340.pdf"
+   }
+  ]
+ },
+ {
+  "title": "平成24年新潟県観光入込客統計",
+  "year": 2012,
+  "page": "https://www.pref.niigata.lg.jp/sec/kankokikaku/1356759823809.html",
+  "dir": "data/raw/2012",
+  "files": [
+   {
+    "label": "調査概要、調査結果（表紙～P20）[PDFファイル／516KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50579.pdf"
+   },
+   {
+    "label": "個別調査資料（P21～34）[PDFファイル／407KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50580.pdf"
+   },
+   {
+    "label": "別表（P35～54）[PDFファイル／368KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50581.pdf"
+   },
+   {
+    "label": "参考資料（P55～背表紙）[PDFファイル／713KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50582.pdf"
+   }
+  ]
+ },
+ {
+  "title": "平成23年新潟県観光入込客統計",
+  "year": 2011,
+  "page": "https://www.pref.niigata.lg.jp/sec/kankokikaku/1355349707078.html",
+  "dir": "data/raw/2011",
+  "files": [
+   {
+    "label": "表紙～P20（調査概要等）[PDFファイル／2.41MB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50451.pdf"
+   },
+   {
+    "label": "P21～36（個別調査資料）[PDFファイル／608KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50452.pdf"
+   },
+   {
+    "label": "P37～56（別表）[PDFファイル／417KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50453.pdf"
+   },
+   {
+    "label": "P57～60（参考資料）[PDFファイル／245KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50454.pdf"
+   },
+   {
+    "label": "P61～裏表紙（参考資料　別表）[PDFファイル／228KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50455.pdf"
+   }
+  ]
+ },
+ {
+  "title": "平成22年度新潟県観光入込客統計",
+  "year": 2010,
+  "page": "https://www.pref.niigata.lg.jp/sec/kankokikaku/1332968586993.html",
+  "dir": "data/raw/2010",
+  "files": [
+   {
+    "label": "P1～26（表紙～）[PDFファイル／763KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50553.pdf"
+   },
+   {
+    "label": "P27～42（個別資料～）[PDFファイル／434KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50554.pdf"
+   },
+   {
+    "label": "P41～61（別表1～9）[PDFファイル／251KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50555.pdf"
+   },
+   {
+    "label": "P57～62（参考資料）[PDFファイル／302KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50556.pdf"
+   },
+   {
+    "label": "P63～66（参考資料別表）[PDFファイル／86KB]",
+    "url": "https://www.pref.niigata.lg.jp/uploaded/attachment/50557.pdf"
+   }
+  ]
+ }
+]
