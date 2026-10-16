@@ -14,15 +14,28 @@
     <h1>新潟県 観光入込客レース</h1>
     <div id="legend"></div>
   </header>
+  <div id="tabs" role="tablist" aria-label="表示の切り替え">
+    <button role="tab" id="tab-race" aria-selected="true" aria-controls="stage">レース</button>
+    <button role="tab" id="tab-map" aria-selected="false" aria-controls="stage">地図</button>
+  </div>
   <div class="row opts" id="modebar">
-    <label>モード
+    <label id="modeWrap">モード
       <select id="mode">
         <option value="monthly" selected>月別（市町村）</option>
         <option value="annual">年間（市町村）</option>
         <option value="spots">観光地点（年次）</option>
       </select>
     </label>
-    <label>集計
+    <label id="metricWrap" hidden>指標
+      <select id="metric">
+        <option value="monthly" selected>月別</option>
+        <option value="annual">年間</option>
+        <option value="category">分類別（年間）</option>
+      </select>
+    </label>
+    <label id="mapcatWrap" hidden>分類 <select id="mapcat"></select></label>
+    <label id="boundsWrap" hidden><input type="checkbox" id="bounds" /> 境界線</label>
+    <label id="aggWrap">集計
       <select id="agg"><option value="single" selected>単月・単年</option><option value="cum">累計</option></select>
     </label>
     <label id="catWrap" hidden>分類 <select id="cat"></select></label>
@@ -34,6 +47,7 @@
     <div id="season" hidden><span id="season-icon" aria-hidden="true"></span><span id="season-label"></span></div>
     <div id="ym"></div>
     <div id="chart"></div>
+    <div id="mapbox" hidden></div>
   </div>
   <section id="controls">
     <div class="row">
@@ -45,7 +59,7 @@
       <label>速度
         <select id="speed"><option value="5">0.2x</option><option value="2" selected>0.5x</option><option value="1">1x</option><option value="0.5">2x</option></select>
       </label>
-      <label>表示
+      <label id="topnWrap">表示
         <select id="topn"><option value="10" selected>10件</option><option value="20">20件</option></select>
       </label>
       <label>範囲
@@ -53,13 +67,23 @@
       </label>
     </div>
   </section>
+  <p id="mapnote" hidden>円の位置は市町村の代表点です。観光地点の位置ではありません。円の面積は入込客数に比例し、大きさの基準は選択中の指標の全期間（2011〜2024年）の最大値で固定です（指標を切り替えると基準が変わります）。</p>
+  <details id="maplegend" open hidden><summary>円の大きさの目安</summary><div class="legend-body"></div></details>
+  <table id="maptable" hidden>
+    <caption id="maptable-cap"></caption>
+    <thead><tr><th scope="col">順位</th><th scope="col">市町村</th><th scope="col">地域</th><th scope="col" class="num">入込客数（人）</th></tr></thead>
+    <tbody></tbody>
+  </table>
   <footer>
     <p class="note">観光入込客数は調査に基づく推計値で、きりのよい数値（例: 340,000人）が多く、順位の僅差は参考として見てください。</p>
     <p class="note">出典: 新潟県観光入込客統計調査（平成23年〜令和6年）。<a href="https://www.pref.niigata.lg.jp/sec/kankokikaku/1245960085415.html" target="_blank" rel="noopener">新潟県</a>
       の著作物を改変（集計・整形）して利用しています。<a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank" rel="noopener">クリエイティブ・コモンズ・ライセンス 表示 4.0国際</a>。
       <a href="https://www.pref.niigata.lg.jp/site/userguide/od-kiyaku.html" target="_blank" rel="noopener">新潟県オープンデータ利用規約</a></p>
     <p class="note">令和3年（2021年）分は、県の年ページにオープンデータの表示（CC BY 4.0 適用の表記）がありません。他の年と同じ出典・表記を付けて掲載していますが、利用条件は県に確認中です。</p>
-    <p class="note">本サイトは新潟県が作成・保証したものではありません。掲載情報の完全性・正確性等について、新潟県は保証していません。</p>
+    <p class="note">地図: 出典：<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">地理院タイル</a>（淡色地図、国土地理院）。市町村の位置・境界は、
+      <a href="https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N03-2025.html" target="_blank" rel="noopener">国土数値情報（行政区域データ N03・2025年版）</a>（国土交通省）をもとに、
+      代表点の算出・境界の簡略化・一部座標の差し替えの加工を行い作成（CC BY 4.0。原典表示: 測量法に基づく国土地理院長承認（複製）R 6JHf 503）。</p>
+    <p class="note">本サイトは新潟県が作成・保証したものではありません。国・県が作成・保証したものでもありません。掲載情報の完全性・正確性等について、新潟県は保証していません。</p>
     <p class="note">観光地点は年間5万人以上の地点のうち公表可能なもののみ。令和2年に集計対象が変わったため、前後の比較には注意してください。</p>
   </footer>
 </div>

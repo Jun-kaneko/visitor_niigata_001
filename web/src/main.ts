@@ -1,5 +1,7 @@
 import * as echarts from 'echarts';
 import { seasonOf } from './season';
+import { CATEGORIES, COLORS } from './colors';
+import type { MapView } from './map';
 
 interface RawSeries { name: string; region?: string; municipality?: string; category?: string; values: (number | null)[]; }
 interface Raw { frames: string[]; regions?: string[]; series: RawSeries[]; }
@@ -8,17 +10,10 @@ interface Dataset {
   frames: string[]; items: Item[]; lag: number; interval: number;
   label: (f: string) => string; unit: string; groups: string[]; allowYears: boolean;
 }
-type Mode = 'monthly' | 'annual' | 'spots';
+type Mode = 'monthly' | 'annual' | 'spots' | 'category';
+type View = 'race' | 'map';
+interface AnnualCat { frames: string[]; regions: string[]; series: { name: string; region: string; values: Record<string, (number | null)[]> }[]; }
 
-const REGION_COLORS: Record<string, string> = {
-  下越: '#2f6fdb', 中越: '#e8892b', 魚沼: '#1b9e77', 上越: '#c0408f', 佐渡: '#8a6d1f',
-};
-const CATEGORY_COLORS: Record<string, string> = {
-  自然: '#2e9e5b', '歴史・文化': '#a35d2c', '温泉・健康': '#d6453d', 'スポーツ・レクリエーション': '#2f6fdb',
-  都市型観光: '#8f5bd0', その他: '#7b8394', '行祭事・イベント': '#d19a00',
-};
-const CATEGORIES = Object.keys(CATEGORY_COLORS);
-const COLORS: Record<string, string> = { ...REGION_COLORS, ...CATEGORY_COLORS };
 const BREAK_YEAR = '2020';
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
@@ -28,8 +23,8 @@ const man = (v: number) =>
 const get = async <T>(f: string): Promise<T> => (await fetch(`./data/${f}`)).json();
 
 async function main() {
-  const [monthly, annual, spots, annotations] = await Promise.all([
-    get<Raw>('monthly.json'), get<Raw>('annual.json'), get<Raw>('spots.json'),
+  const [monthly, annual, spots, annualCat, annotations] = await Promise.all([
+    get<Raw>('monthly.json'), get<Raw>('annual.json'), get<Raw>('spots.json'), get<AnnualCat>('annual_category.json'),
     get<{ ym: string; target: string; text: string }[]>('annotations.json'),
   ]);
   const regions = monthly.regions!;
@@ -44,6 +39,12 @@ async function main() {
       label: ymMonthly, unit: '同月', groups: regions, allowYears: true }),
     annual: () => ({ frames: annual.frames, items: fromRegional(annual), lag: 1, interval: 1400,
       label: (f) => `${f}年`, unit: '', groups: regions, allowYears: false }),
+    category: () => {   // 地図専用: 分類別（年間）
+      const c = $<HTMLSelectElement>('mapcat').value;
+      return { frames: annualCat.frames, lag: 1, interval: 1400, label: (f) => `${f}年`, unit: '', groups: regions,
+        allowYears: false, items: annualCat.series.map((x) => ({ key: x.name, name: x.name, group: x.region,
+          municipality: x.name, values: x.values[c] })) };
+    },
     spots: () => {
       const cat = $<HTMLSelectElement>('cat').value, mu = $<HTMLSelectElement>('muni').value;
       const list = spots.series.filter((s) => (!cat || s.category === cat) && (!mu || s.municipality === mu));
@@ -66,6 +67,10 @@ async function main() {
   let start = 0, end = ds.frames.length - 1, idx = 0, playing = false, topN = 10, speed = 2;   // speed は間隔の倍率（2 = 0.5x が既定）
   let timer: number | undefined;
   let cumulative = false;
+  let view: View = 'race';
+  let mapView: MapView | null = null;
+  let vmax = 1;                          // 地図の固定スケール（選択指標の全期間最大）
+  const shared = { y: 2011, m: 1 };      // レースと地図で共有する年月
   let cum: number[][] = [];   // 累計（範囲の先頭から。欠損・対象外は0として加算）
   const slider = $<HTMLInputElement>('slider'), playBtn = $('play');
   const rangeSel = $<HTMLSelectElement>('range');
@@ -74,6 +79,7 @@ async function main() {
   const intervalMs = () => ds.interval * speed;
   const animMs = () => (noAnim ? 0 : intervalMs());
 
+  $<HTMLSelectElement>('mapcat').innerHTML = CATEGORIES.map((c) => `<option>${c}</option>`).join('');
   // spots 絞り込みの選択肢
   $<HTMLSelectElement>('cat').innerHTML = '<option value="">全分類</option>' +
     CATEGORIES.map((c) => `<option>${c}</option>`).join('');
@@ -195,7 +201,7 @@ async function main() {
   // 季節の背景色と絵文字（月別フレームのときのみ。年次モードは季節なし）
   function renderSeason(frame: string) {
     const stage = $('stage'), box = $('season'), icon = $('season-icon');
-    if (mode !== 'monthly') { box.hidden = true; delete stage.dataset.season; return; }
+    if (view === 'map' || mode !== 'monthly') { box.hidden = true; delete stage.dataset.season; return; }
     const se = seasonOf(frame);
     box.hidden = false;
     stage.dataset.season = se.season;
@@ -206,8 +212,66 @@ async function main() {
     $('season-label').textContent = `${se.season}・${se.motif}`;
   }
 
+  // --- 共有する年月 / 地図 ---
+  function syncShared(frame: string) {
+    const p = frame.split('-').map(Number);
+    shared.y = p[0];
+    if (p.length > 1) shared.m = p[1];
+  }
+  function frameIndexFor(t: { y: number; m: number }): number {
+    return ds.frames.indexOf(ds.frames[0].includes('-') ? `${t.y}-${String(t.m).padStart(2, '0')}` : String(t.y));
+  }
+  const metricLabel = () => (mode === 'category' ? `分類「${$<HTMLSelectElement>('mapcat').value}」` : mode === 'monthly' ? '月別' : '年間');
+  const computeVmax = () => { vmax = Math.max(1, ...ds.items.flatMap((it) => it.values.map((v) => v ?? 0))); };
+
+  function describe(name: string): string {
+    const it = ds.items.find((x) => x.name === name)!;
+    const v = it.values[idx];
+    const ranked = ds.items.map((x) => x.values[idx]).filter((x): x is number => x != null).sort((a, b) => b - a);
+    const lines = [`<b>${it.name}</b>（${it.group}）`,
+      `${ds.label(ds.frames[idx])}・${metricLabel()}: ` + (v == null ? 'データなし' : `${fmt(v)}人`)];
+    if (v != null) lines.push(`順位: ${ranked.indexOf(v) + 1}位 / ${ranked.length}`);
+    const pv = idx >= ds.lag ? it.values[idx - ds.lag] : null;
+    if (v != null && pv != null && pv > 0) {
+      const r = (v / pv - 1) * 100;
+      lines.push(`前年${ds.unit}: ${fmt(pv)}人（${r >= 0 ? '+' : ''}${r.toFixed(1)}%）`);
+    }
+    return lines.join('<br/>');
+  }
+
+  function renderTable() {
+    const rows = ds.items.map((it) => ({ it, v: it.values[idx] }))
+      .sort((a, b) => (b.v ?? -1) - (a.v ?? -1));
+    $('maptable-cap').textContent = `${ds.label(ds.frames[idx])}・${metricLabel()}の入込客数（多い順）`;
+    $('maptable').querySelector('tbody')!.innerHTML = rows.map(({ it, v }, n) =>
+      `<tr data-name="${it.name}"><td>${v == null ? '–' : n + 1}</td><td><i style="background:${COLORS[it.group]}"></i>${it.name}</td>` +
+      `<td>${it.group}</td><td class="num">${v == null ? 'データなし' : fmt(v)}</td></tr>`).join('');
+  }
+
+  let mapPromise: Promise<MapView> | null = null;
+  const ensureMap = () => (mapPromise ??= import('./map').then((m) => m.createMapView($('mapbox'), $('maplegend')))
+    .then((mv) => { mapView = mv; mv.setBoundaries($<HTMLInputElement>('bounds').checked); return mv; })
+    .catch((e) => { $('mapnote').textContent = '地図を表示できませんでした（WebGL が使えない環境の可能性があります）。下の表で値を確認できます。'; throw e; }));
+
+  async function renderMapFrame() {
+    renderTable();
+    let mv: MapView;
+    try { mv = await ensureMap(); } catch { return; }
+    if (view !== 'map') return;
+    mv.update({ names: ds.items.map((x) => x.name), values: ds.items.map((x) => x.values[idx]),
+      vmax, animMs: animMs(), describe });
+  }
+
   function render(i: number, full = false) {
     idx = i;
+    syncShared(ds.frames[i]);
+    if (view === 'map') {
+      $('ym').textContent = ds.label(ds.frames[i]);
+      slider.value = String(i);
+      renderSeason(ds.frames[i]);
+      void renderMapFrame();
+      return;
+    }
     $('ym').textContent = ds.label(ds.frames[i]) + (cumulative ? '\n累計' : '');
     renderSeason(ds.frames[i]);
     slider.value = String(i);
@@ -222,6 +286,7 @@ async function main() {
     else { start = ds.frames.findIndex((f) => f.startsWith(key)); end = start + 11; }
     slider.min = String(start); slider.max = String(end);
     buildCum();
+    computeVmax();
     render(start, true);
   }
 
@@ -244,14 +309,42 @@ async function main() {
     if (timer) clearTimeout(timer);
   }
 
-  function setMode(m: Mode) {
+  function setMode(m: Mode, keepTime = false) {
+    const t = { ...shared };   // setRange の描画で共有年月が上書きされる前に控える
     pause();
     mode = m;
     ds = datasets[m]();
-    $('catWrap').hidden = $('muniWrap').hidden = m !== 'spots';
+    applyViewUi();
     renderLegend();
     setRangeOptions();
     setRange('all');
+    if (keepTime) { const k = frameIndexFor(t); if (k >= 0) render(k); }
+  }
+
+  // タブごとの表示要素の切り替え
+  function applyViewUi() {
+    const map = view === 'map';
+    for (const id of ['chart', 'captions', 'modeWrap', 'aggWrap', 'topnWrap']) $(id).hidden = map;
+    for (const id of ['mapbox', 'metricWrap', 'boundsWrap', 'maplegend', 'mapnote', 'maptable']) $(id).hidden = !map;
+    $('mapcatWrap').hidden = !map || mode !== 'category';
+    $('catWrap').hidden = $('muniWrap').hidden = map || mode !== 'spots';
+    if (map) $('notice').hidden = true;
+    $<HTMLSelectElement>('mode').value = mode === 'category' ? 'annual' : mode;
+    $<HTMLSelectElement>('metric').value = mode === 'spots' ? 'monthly' : mode;
+    $('stage').dataset.view = view;
+    $('tab-race').setAttribute('aria-selected', String(!map));
+    $('tab-map').setAttribute('aria-selected', String(map));
+  }
+
+  // レース/地図の切り替え。年月・再生状態は引き継ぐ
+  function setView(v: View) {
+    if (v === view) return;
+    const wasPlaying = playing;
+    view = v;
+    const need: Mode = v === 'map' ? (mode === 'spots' ? 'monthly' : mode) : (mode === 'category' ? 'annual' : mode);
+    setMode(need, true);
+    if (v === 'race') chart.resize();
+    if (wasPlaying) play();
   }
 
   playBtn.onclick = () => (playing ? pause() : play());
@@ -263,6 +356,19 @@ async function main() {
   };
   $<HTMLSelectElement>('topn').onchange = (e) => { topN = Number((e.target as HTMLSelectElement).value); render(idx, true); };
   rangeSel.onchange = () => { pause(); setRange(rangeSel.value); };
+  $('tab-race').onclick = () => setView('race');
+  $('tab-map').onclick = () => setView('map');
+  $<HTMLSelectElement>('metric').onchange = (e) => setMode((e.target as HTMLSelectElement).value as Mode, true);
+  $('mapcat').onchange = () => {
+    const t = { ...shared };
+    pause(); ds = datasets.category(); setRange('all');
+    const k = frameIndexFor(t); if (k >= 0) render(k);
+  };
+  $('maptable').querySelector('tbody')!.addEventListener('click', (e) => {
+    const name = (e.target as HTMLElement).closest('tr')?.dataset.name;
+    if (name) mapView?.open(name);
+  });
+  $('bounds').onchange = () => mapView?.setBoundaries($<HTMLInputElement>('bounds').checked);
   $<HTMLSelectElement>('mode').onchange = (e) => setMode((e.target as HTMLSelectElement).value as Mode);
   const refilter = () => { pause(); ds = datasets.spots(); setRange('all'); };
   $<HTMLSelectElement>('agg').onchange = (e) => {
@@ -270,7 +376,7 @@ async function main() {
     render(idx, true);
   };
   $('cat').onchange = refilter; $('muni').onchange = refilter;
-  window.addEventListener('resize', () => chart.resize());
+  window.addEventListener('resize', () => { chart.resize(); mapView?.resize(); });
 
   renderLegend();
   setRangeOptions();
@@ -284,6 +390,9 @@ async function main() {
     if (hash.get('u')) $<HTMLSelectElement>('muni').value = hash.get('u')!;
     setMode(hm);
   }
+  if (hash.get('mc')) $<HTMLSelectElement>('mapcat').value = hash.get('mc')!;
+  if (hash.get('v') === 'map') setView('map');
+  if (hash.get('pop')) ensureMap().then((mv) => setTimeout(() => mv.open(hash.get('pop')!), 500));  // 検証用: ポップアップを開く
   if (hash.get('s') === 'cum') { cumulative = true; $<HTMLSelectElement>('agg').value = 'cum'; }
   if (hash.get('i')) render(Math.min(Number(hash.get('i')), ds.frames.length - 1));
   if (hash.get('p') === '1') play();

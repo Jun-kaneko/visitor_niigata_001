@@ -1,0 +1,554 @@
+{
+ "n03_names": 30,
+ "missing_in_n03": [],
+ "extra_in_n03": [],
+ "rows": [
+  {
+   "municipality": "村上市",
+   "region": "下越",
+   "codes": [
+    "15212"
+   ],
+   "area_km2": 1170.6,
+   "parts": 983,
+   "rep_lon": 139.66282,
+   "rep_lat": 38.31453,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 4.0,
+   "polylabel_to_rep_km": 5.4,
+   "gsi_title": "新潟県村上市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 18.9
+  },
+  {
+   "municipality": "胎内市",
+   "region": "下越",
+   "codes": [
+    "15227"
+   ],
+   "area_km2": 264.9,
+   "parts": 3,
+   "rep_lon": 139.50946,
+   "rep_lat": 38.00573,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 2.5,
+   "polylabel_to_rep_km": 12.1,
+   "gsi_title": "新潟県胎内市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 10.6
+  },
+  {
+   "municipality": "関川村",
+   "region": "下越",
+   "codes": [
+    "15581"
+   ],
+   "area_km2": 299.6,
+   "parts": 1,
+   "rep_lon": 139.60628,
+   "rep_lat": 38.0442,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 2.3,
+   "polylabel_to_rep_km": 6.0,
+   "gsi_title": "新潟県関川村",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 6.2
+  },
+  {
+   "municipality": "粟島浦村",
+   "region": "下越",
+   "codes": [
+    "15586"
+   ],
+   "area_km2": 9.8,
+   "parts": 257,
+   "rep_lon": 139.24293,
+   "rep_lat": 38.46364,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 0.3,
+   "polylabel_to_rep_km": 1.0,
+   "gsi_title": "新潟県粟島浦村",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 1.1
+  },
+  {
+   "municipality": "新潟市",
+   "region": "下越",
+   "codes": [
+    "15101",
+    "15102",
+    "15103",
+    "15104",
+    "15105",
+    "15106",
+    "15107",
+    "15108"
+   ],
+   "area_km2": 725.9,
+   "parts": 48,
+   "rep_lon": 139.02122,
+   "rep_lat": 37.84992,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 2.8,
+   "polylabel_to_rep_km": 3.8,
+   "gsi_title": "新潟県新潟市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 7.5
+  },
+  {
+   "municipality": "新発田市",
+   "region": "下越",
+   "codes": [
+    "15206"
+   ],
+   "area_km2": 533.1,
+   "parts": 1,
+   "rep_lon": 139.37899,
+   "rep_lat": 37.91891,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 4.5,
+   "polylabel_to_rep_km": 1.7,
+   "gsi_title": "新潟県新発田市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 5.6
+  },
+  {
+   "municipality": "燕市",
+   "region": "下越",
+   "codes": [
+    "15213"
+   ],
+   "area_km2": 110.9,
+   "parts": 6,
+   "rep_lon": 138.90164,
+   "rep_lat": 37.66285,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 1.4,
+   "polylabel_to_rep_km": 2.7,
+   "gsi_title": "新潟県燕市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 2.1
+  },
+  {
+   "municipality": "阿賀野市",
+   "region": "下越",
+   "codes": [
+    "15223"
+   ],
+   "area_km2": 194.5,
+   "parts": 2,
+   "rep_lon": 139.25577,
+   "rep_lat": 37.8134,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 0.3,
+   "polylabel_to_rep_km": 0.4,
+   "gsi_title": "新潟県阿賀野市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 3.5
+  },
+  {
+   "municipality": "聖籠町",
+   "region": "下越",
+   "codes": [
+    "15307"
+   ],
+   "area_km2": 37.6,
+   "parts": 4,
+   "rep_lon": 139.25549,
+   "rep_lat": 37.98801,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 1.1,
+   "polylabel_to_rep_km": 2.1,
+   "gsi_title": "新潟県聖籠町",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 2.2
+  },
+  {
+   "municipality": "阿賀町",
+   "region": "下越",
+   "codes": [
+    "15385"
+   ],
+   "area_km2": 952.9,
+   "parts": 1,
+   "rep_lon": 139.44015,
+   "rep_lat": 37.65128,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 2.6,
+   "polylabel_to_rep_km": 4.7,
+   "gsi_title": "新潟県阿賀町",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 3.2
+  },
+  {
+   "municipality": "弥彦村",
+   "region": "下越",
+   "codes": [
+    "15342"
+   ],
+   "area_km2": 25.2,
+   "parts": 1,
+   "rep_lon": 138.83808,
+   "rep_lat": 37.68718,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 0.4,
+   "polylabel_to_rep_km": 0.6,
+   "gsi_title": "新潟県弥彦村",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 1.6
+  },
+  {
+   "municipality": "五泉市",
+   "region": "下越",
+   "codes": [
+    "15218"
+   ],
+   "area_km2": 350.1,
+   "parts": 1,
+   "rep_lon": 139.22988,
+   "rep_lat": 37.6436,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 1.5,
+   "polylabel_to_rep_km": 4.0,
+   "gsi_title": "新潟県五泉市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 11.9
+  },
+  {
+   "municipality": "長岡市",
+   "region": "中越",
+   "codes": [
+    "15202"
+   ],
+   "area_km2": 890.9,
+   "parts": 19,
+   "rep_lon": 138.82704,
+   "rep_lat": 37.46963,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 4.7,
+   "polylabel_to_rep_km": 1.9,
+   "gsi_title": "新潟県長岡市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 3.4
+  },
+  {
+   "municipality": "三条市",
+   "region": "中越",
+   "codes": [
+    "15204"
+   ],
+   "area_km2": 431.9,
+   "parts": 1,
+   "rep_lon": 139.11498,
+   "rep_lat": 37.53961,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 2.2,
+   "polylabel_to_rep_km": 7.7,
+   "gsi_title": "新潟県三条市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 17.3
+  },
+  {
+   "municipality": "柏崎市",
+   "region": "中越",
+   "codes": [
+    "15205"
+   ],
+   "area_km2": 441.9,
+   "parts": 101,
+   "rep_lon": 138.57856,
+   "rep_lat": 37.34175,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 2.7,
+   "polylabel_to_rep_km": 2.8,
+   "gsi_title": "新潟県柏崎市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 3.2
+  },
+  {
+   "municipality": "小千谷市",
+   "region": "中越",
+   "codes": [
+    "15208"
+   ],
+   "area_km2": 155.2,
+   "parts": 1,
+   "rep_lon": 138.79582,
+   "rep_lat": 37.29527,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 0.6,
+   "polylabel_to_rep_km": 1.5,
+   "gsi_title": "新潟県小千谷市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 2.1
+  },
+  {
+   "municipality": "加茂市",
+   "region": "中越",
+   "codes": [
+    "15209"
+   ],
+   "area_km2": 133.7,
+   "parts": 1,
+   "rep_lon": 139.08904,
+   "rep_lat": 37.63192,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 2.2,
+   "polylabel_to_rep_km": 1.6,
+   "gsi_title": "新潟県加茂市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 5.8
+  },
+  {
+   "municipality": "見附市",
+   "region": "中越",
+   "codes": [
+    "15211"
+   ],
+   "area_km2": 77.9,
+   "parts": 2,
+   "rep_lon": 138.93902,
+   "rep_lat": 37.53082,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 0.7,
+   "polylabel_to_rep_km": 1.7,
+   "gsi_title": "新潟県見附市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 2.3
+  },
+  {
+   "municipality": "田上町",
+   "region": "中越",
+   "codes": [
+    "15361"
+   ],
+   "area_km2": 31.7,
+   "parts": 1,
+   "rep_lon": 139.06675,
+   "rep_lat": 37.70267,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 0.4,
+   "polylabel_to_rep_km": 0.5,
+   "gsi_title": "新潟県田上町",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 0.9
+  },
+  {
+   "municipality": "出雲崎町",
+   "region": "中越",
+   "codes": [
+    "15405"
+   ],
+   "area_km2": 44.4,
+   "parts": 4,
+   "rep_lon": 138.71574,
+   "rep_lat": 37.53276,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 0.7,
+   "polylabel_to_rep_km": 0.8,
+   "gsi_title": "新潟県出雲崎町",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 0.6
+  },
+  {
+   "municipality": "刈羽村",
+   "region": "中越",
+   "codes": [
+    "15504"
+   ],
+   "area_km2": 26.3,
+   "parts": 2,
+   "rep_lon": 138.62698,
+   "rep_lat": 37.42825,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 1.3,
+   "polylabel_to_rep_km": 0.8,
+   "gsi_title": "新潟県刈羽村",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 0.8
+  },
+  {
+   "municipality": "十日町市",
+   "region": "魚沼",
+   "codes": [
+    "15210"
+   ],
+   "area_km2": 593.3,
+   "parts": 1,
+   "rep_lon": 138.7438,
+   "rep_lat": 37.05263,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 5.6,
+   "polylabel_to_rep_km": 8.8,
+   "gsi_title": "新潟県十日町市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 8.4
+  },
+  {
+   "municipality": "魚沼市",
+   "region": "魚沼",
+   "codes": [
+    "15225"
+   ],
+   "area_km2": 946.6,
+   "parts": 1,
+   "rep_lon": 139.13365,
+   "rep_lat": 37.17737,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 5.8,
+   "polylabel_to_rep_km": 13.6,
+   "gsi_title": "新潟県魚沼市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 16.4
+  },
+  {
+   "municipality": "湯沢町",
+   "region": "魚沼",
+   "codes": [
+    "15461"
+   ],
+   "area_km2": 354.2,
+   "parts": 1,
+   "rep_lon": 138.80986,
+   "rep_lat": 36.85022,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 1.0,
+   "polylabel_to_rep_km": 4.4,
+   "gsi_title": "新潟県湯沢町",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 9.3
+  },
+  {
+   "municipality": "南魚沼市",
+   "region": "魚沼",
+   "codes": [
+    "15226"
+   ],
+   "area_km2": 584.5,
+   "parts": 1,
+   "rep_lon": 138.94685,
+   "rep_lat": 37.04796,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 1.2,
+   "polylabel_to_rep_km": 3.1,
+   "gsi_title": "新潟県南魚沼市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 6.6
+  },
+  {
+   "municipality": "津南町",
+   "region": "魚沼",
+   "codes": [
+    "15482"
+   ],
+   "area_km2": 170.2,
+   "parts": 1,
+   "rep_lon": 138.65026,
+   "rep_lat": 36.9554,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 1.9,
+   "polylabel_to_rep_km": 2.9,
+   "gsi_title": "新潟県津南町",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 6.5
+  },
+  {
+   "municipality": "上越市",
+   "region": "上越",
+   "codes": [
+    "15222"
+   ],
+   "area_km2": 973.7,
+   "parts": 46,
+   "rep_lon": 138.30619,
+   "rep_lat": 37.1238,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 2.8,
+   "polylabel_to_rep_km": 7.4,
+   "gsi_title": "新潟県上越市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 6.8
+  },
+  {
+   "municipality": "糸魚川市",
+   "region": "上越",
+   "codes": [
+    "15216"
+   ],
+   "area_km2": 746.1,
+   "parts": 53,
+   "rep_lon": 137.88672,
+   "rep_lat": 36.95711,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 1.2,
+   "polylabel_to_rep_km": 9.7,
+   "gsi_title": "新潟県糸魚川市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 9.3
+  },
+  {
+   "municipality": "妙高市",
+   "region": "上越",
+   "codes": [
+    "15217"
+   ],
+   "area_km2": 445.5,
+   "parts": 1,
+   "rep_lon": 138.21671,
+   "rep_lat": 36.9356,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 2.6,
+   "polylabel_to_rep_km": 9.2,
+   "gsi_title": "新潟県妙高市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 10.5
+  },
+  {
+   "municipality": "佐渡市",
+   "region": "佐渡",
+   "codes": [
+    "15224"
+   ],
+   "area_km2": 855.5,
+   "parts": 1152,
+   "rep_lon": 138.35129,
+   "rep_lat": 38.06735,
+   "rep_inside": true,
+   "centroid_inside": true,
+   "centroid_to_rep_km": 4.2,
+   "polylabel_to_rep_km": 10.5,
+   "gsi_title": "新潟県佐渡市",
+   "gsi_results": 1,
+   "gsi_to_rep_km": 5.6
+  }
+ ]
+}

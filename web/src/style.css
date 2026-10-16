@@ -46,3 +46,28 @@ select { font-size:16px; min-height:44px; padding:0 8px; border-radius:8px; bord
 #season-label { font-size: 14px; font-weight: 600; color: var(--muted); }
 @keyframes season-pop { from { opacity:0; transform: scale(.6); } to { opacity:1; transform: scale(1); } }
 @media (prefers-reduced-motion: reduce) { #season-icon.pop { animation: none; } #stage { transition: none; } }
+
+/* タブと地図 */
+#tabs { display:flex; gap:8px; margin-top:8px; }
+#tabs button { flex:1; height:44px; font-size:16px; background:transparent; color:var(--fg); }
+#tabs button[aria-selected="true"] { background:var(--btn); color:#fff; border-color:var(--btn); }
+#mapbox { width:100%; height: min(62vh, 560px); min-height: 360px; border-radius:12px; overflow:hidden; }
+#boundsWrap { display:flex; align-items:center; gap:6px; min-height:44px; }
+#boundsWrap input { width:20px; height:20px; }
+#mapnote { margin:8px 0 0; padding:8px 10px; border-radius:8px; font-size:13px; background:rgba(47,111,219,.12); border:1px solid rgba(47,111,219,.45); }
+#maplegend { margin-top:8px; font-size:13px; }
+#maplegend summary { min-height:32px; cursor:pointer; }
+#maplegend svg { color: var(--fg); }
+#maptable { width:100%; border-collapse:collapse; margin-top:12px; font-size:14px; }
+#maptable caption { text-align:left; font-weight:600; padding:4px 0; }
+#maptable th, #maptable td { padding:4px 6px; border-bottom:1px solid var(--line); text-align:left; }
+#maptable th.num, #maptable td.num { text-align:right; font-variant-numeric: tabular-nums; }
+#maptable i { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; }
+.maplibregl-popup-content { color:#1d2330; font-size:14px; line-height:1.5; }
+#maptable tbody tr { cursor: pointer; }
+#maptable tbody tr:hover { background: rgba(120,130,150,.15); }
+
+/* 地図タブでは年月を地図の左上に読みやすく表示（ズーム操作は右上） */
+#stage[data-view="map"] #ym { top:8px; left:8px; right:auto; bottom:auto; font-size:26px; opacity:1; color:var(--fg);
+  background: color-mix(in srgb, var(--bg) 88%, transparent); padding:2px 12px; border-radius:10px; text-align:left;
+  box-shadow: 0 1px 4px rgba(0,0,0,.25); }

@@ -126,6 +126,13 @@ def build_json(monthly, annual, annual_cat, spots, totals):
         s = aser.setdefault(muni, {"name": muni, "region": region, "values": [None] * len(years)})
         s["values"][years.index(y)] = fnum(v)
     dump("annual.json", {"frames": [str(y) for y in years], "regions": REGION_ORDER, "series": list(aser.values())})
+    cser = {}
+    for y, muni, cat, v in annual_cat:
+        s = cser.setdefault(muni, {"name": muni, "region": aser[muni]["region"],
+                                   "values": {c: [None] * len(years) for c in P.CATEGORIES}})
+        s["values"][cat][years.index(y)] = fnum(v)
+    dump("annual_category.json", {"frames": [str(y) for y in years], "categories": P.CATEGORIES,
+                                  "regions": REGION_ORDER, "series": list(cser.values())})
     sser = {}
     for y, muni, name, cat, v, pv, note in spots:
         s = sser.setdefault((muni, name), {"name": name, "municipality": muni, "category": cat,
